@@ -79,4 +79,4 @@ jobs:
         run: |
           wget -O butler.zip https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default
           unzip butler.zip
-          ./butler push build/web sakkaku13/not-tetris:web
+          ./butler push build/web sakkaku13/side-runner:web
