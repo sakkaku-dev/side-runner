@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=2]
+[gd_scene load_steps=52 format=2]
 
 [ext_resource path="res://World/ground-tileset.png" type="Texture" id=1]
 [ext_resource path="res://World/Map.gd" type="Script" id=2]
@@ -453,10 +453,6 @@ points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
 } ]
 0/z_index = 0
 
-[sub_resource type="RectangleShape2D" id=50]
-
-[sub_resource type="CircleShape2D" id=49]
-
 [node name="Map" type="TileMap"]
 tile_set = SubResource( 48 )
 cell_size = Vector2( 32, 32 )
@@ -469,13 +465,7 @@ enemy_scene = ExtResource( 3 )
 [node name="ExpandNotifier" type="VisibilityNotifier2D" parent="."]
 position = Vector2( 130.108, 96.1665 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ExpandNotifier"]
-shape = SubResource( 50 )
-
 [node name="ShrinkNotifier" type="VisibilityNotifier2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ShrinkNotifier"]
-shape = SubResource( 49 )
 
 [node name="EnemyContainer" type="Node2D" parent="."]
 [connection signal="screen_entered" from="ExpandNotifier" to="." method="update_map"]
