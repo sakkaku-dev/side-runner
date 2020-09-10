@@ -2,3 +2,4 @@
 *.import
 script_templates
 tests/results/
+.test

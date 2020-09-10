@@ -9,6 +9,21 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Node",
+"class": "Health",
+"language": "GDScript",
+"path": "res://addons/rpg-common/HitArea/Health.gd"
+}, {
+"base": "Area2D",
+"class": "HitArea",
+"language": "GDScript",
+"path": "res://addons/rpg-common/HitArea/HitArea.gd"
+}, {
+"base": "Area2D",
+"class": "HurtArea",
+"language": "GDScript",
+"path": "res://addons/rpg-common/HitArea/HurtArea.gd"
+}, {
 "base": "Reference",
 "class": "Mockito",
 "language": "GDScript",
@@ -30,6 +45,9 @@ _global_script_classes=[ {
 "path": "res://addons/WAT/core/test/test.gd"
 } ]
 _global_script_class_icons={
+"Health": "",
+"HitArea": "",
+"HurtArea": "",
 "Mockito": "",
 "MoveState": "",
 "WAT": "",
@@ -56,7 +74,7 @@ config/icon="res://icon.png"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "WAT" )
+enabled=PoolStringArray( "WAT", "rpg-common" )
 
 [importer_defaults]
 
@@ -104,6 +122,8 @@ jump={
 2d_physics/layer_1="world"
 2d_physics/layer_2="player"
 2d_physics/layer_3="enemy"
+2d_physics/layer_4="player_hurtbox"
+2d_physics/layer_5="enemy_hurtbox"
 
 [rendering]
 

@@ -1,10 +1,14 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://World/ground.png" type="Texture" id=1]
 [ext_resource path="res://Enemy/Enemy.gd" type="Script" id=2]
 [ext_resource path="res://States/MoveState.tscn" type="PackedScene" id=3]
+[ext_resource path="res://addons/rpg-common/HitArea/HitArea.tscn" type="PackedScene" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 8, 8 )
+
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 8, 8 )
 
 [node name="Enemy" type="KinematicBody2D"]
@@ -28,3 +32,9 @@ character_path = NodePath("..")
 position = Vector2( -10, 0 )
 enabled = true
 cast_to = Vector2( 0, 15 )
+
+[node name="HitArea" parent="." instance=ExtResource( 4 )]
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitArea"]
+shape = SubResource( 2 )
