@@ -1,9 +1,21 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://World/Map.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://World/World.gd" type="Script" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 10, 200 )
 
 [node name="World" type="Node2D"]
+script = ExtResource( 4 )
+
+[node name="LeftLimit" type="StaticBody2D" parent="."]
+position = Vector2( 0, 200 )
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftLimit"]
+shape = SubResource( 1 )
 
 [node name="MainCamera" type="Camera2D" parent="."]
 position = Vector2( 200, 300 )
@@ -18,3 +30,5 @@ position = Vector2( 200, 300 )
 remote_path = NodePath("../../MainCamera")
 
 [node name="Map" parent="." instance=ExtResource( 1 )]
+player_path = NodePath("../Player")
+[connection signal="shrinked" from="Map" to="." method="set_left_limit"]

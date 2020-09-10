@@ -1,5 +1,8 @@
 extends TileMap
 
+# Emit global x axis of new first block after shrinked
+signal shrinked(global_first_block_x)
+
 const TILE_ID = 0
 
 export var max_distance = 4
@@ -8,14 +11,19 @@ export var max_generate_distance = 50
 
 export var enemy_scene: PackedScene
 
-onready var visibility_notifier = $VisibilityNotifier2D
+export var player_path: NodePath
+onready var player = get_node(player_path)
+
+onready var expand_notifier = $ExpandNotifier
+onready var shrink_notifier = $ShrinkNotifier
+onready var enemy_container = $EnemyContainer
 
 var last_block_pos = Vector2.ZERO
 
 func _ready():
 	randomize()
 	_update_last_block_position()
-	_update_map()
+	update_map()
 	
 func _update_last_block_position() -> void:
 	var last_x = 0
@@ -27,9 +35,9 @@ func _update_last_block_position() -> void:
 		
 	last_block_pos = Vector2(last_x, last_y)
 
-func _update_map() -> void:
+func update_map() -> void:
 	var last_block = last_block_pos
-	_update_visibility_notifier_position(last_block)
+	_update_expand_notifier_position(last_block)
 	
 	while last_block.x <= last_block_pos.x + max_generate_distance:
 		var distance = max(2, (randi() % max_distance) + 1)
@@ -40,13 +48,13 @@ func _update_map() -> void:
 		
 		if length >= 6:
 			var enemy = enemy_scene.instance()
-			add_child(enemy)
+			enemy_container.add_child(enemy)
 			enemy.global_position = map_to_world(Vector2(last_block.x - 1, last_block.y - 1))
 	
 	last_block_pos = last_block
 	
-func _update_visibility_notifier_position(cell_pos: Vector2) -> void:
-	visibility_notifier.global_position = map_to_world(cell_pos)
+func _update_expand_notifier_position(cell_pos: Vector2) -> void:
+	expand_notifier.global_position = map_to_world(cell_pos)
 
 func _create_platform(pos: Vector2, length: int) -> Vector2:
 	for i in range(0, length):
@@ -58,6 +66,25 @@ func _create_tile_at(pos: Vector2) -> void:
 	set_cellv(pos, TILE_ID)
 	update_bitmask_area(pos)
 
-func _on_VisibilityNotifier2D_screen_entered():
-	_update_map()
-	print("Updated")
+func shrink_map() -> void:
+	var start_pos = shrink_notifier.global_position
+	
+	# Dont shrink if exited in front of the player
+	if start_pos.x > player.global_position.x:
+		return
+	
+	for enemy in enemy_container.get_children():
+		if enemy.global_position.x < start_pos.x:
+			enemy.queue_free()
+	
+	var local_start_pos = world_to_map(start_pos)
+	var new_first_pos = local_start_pos.x
+	for cell in get_used_cells():
+		if cell.x < local_start_pos.x:
+			set_cellv(cell, -1)
+		else:
+			new_first_pos = min(new_first_pos, cell.x)
+			
+	shrink_notifier.global_position = expand_notifier.global_position
+	var new_first_global = map_to_world(Vector2(new_first_pos, 0))
+	emit_signal("shrinked", new_first_global.x)
