@@ -1,9 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://World/Map.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://UI/PlayerUI.tscn" type="PackedScene" id=3]
 [ext_resource path="res://World/World.gd" type="Script" id=4]
+[ext_resource path="res://World/bgm.ogg" type="AudioStream" id=5]
+[ext_resource path="res://UI/Menu.tscn" type="PackedScene" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 10, 200 )
@@ -38,9 +40,17 @@ player_path = NodePath("../Player")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="PlayerUI" parent="CanvasLayer" instance=ExtResource( 3 )]
+
+[node name="Menu" parent="CanvasLayer" instance=ExtResource( 6 )]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+volume_db = -20.0
+autoplay = true
 [connection signal="health_changed" from="Player/Health" to="CanvasLayer/PlayerUI" method="set_hearts"]
 [connection signal="max_health_changed" from="Player/Health" to="CanvasLayer/PlayerUI" method="set_max_hearts"]
 [connection signal="bounce" from="Player/BounceDetection" to="Player" method="bounce"]
+[connection signal="screen_exited" from="Player/OutsideCameraNotifier" to="." method="player_outside_map"]
 [connection signal="shrinked" from="Map" to="." method="set_left_limit"]
 
 [editable path="Player"]

@@ -4,6 +4,7 @@ extends TileMap
 signal shrinked(global_first_block_x)
 
 const TILE_ID = 0
+const GROUND_HEIGHT = 3
 
 export var max_distance = 4
 export var max_platform_length = 20
@@ -34,6 +35,17 @@ func _update_last_block_position() -> void:
 		last_y = max(last_y, cell.y)
 		
 	last_block_pos = Vector2(last_x, last_y)
+	
+func get_start_cell_position() -> Vector2:
+	var first_x = -1
+	for cell in get_used_cells():
+		if first_x == -1:
+			first_x = cell.x
+		else:
+			first_x = min(first_x, cell.x)
+	
+	first_x = max(first_x, 5)
+	return map_to_world(Vector2(first_x + 1, 8))
 
 func update_map() -> void:
 	var last_block = last_block_pos
@@ -49,7 +61,7 @@ func update_map() -> void:
 		if length >= 6:
 			var enemy = enemy_scene.instance()
 			enemy_container.add_child(enemy)
-			enemy.global_position = map_to_world(Vector2(last_block.x - 1, last_block.y - 1))
+			enemy.global_position = map_to_world(Vector2(last_block.x - 1, last_block.y - 1 - GROUND_HEIGHT))
 	
 	last_block_pos = last_block
 	
@@ -58,8 +70,11 @@ func _update_expand_notifier_position(cell_pos: Vector2) -> void:
 
 func _create_platform(pos: Vector2, length: int) -> Vector2:
 	for _i in range(0, length):
-		_create_tile_at(pos)
+		for _j in range(GROUND_HEIGHT):
+			_create_tile_at(pos)
+			pos.y -= 1
 		pos.x += 1
+		pos.y += GROUND_HEIGHT
 	return pos
 
 func _create_tile_at(pos: Vector2) -> void:
