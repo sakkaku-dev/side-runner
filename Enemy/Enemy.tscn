@@ -41,7 +41,7 @@ extents = Vector2( 15, 20 )
 extents = Vector2( 20, 5 )
 
 [sub_resource type="RectangleShape2D" id=8]
-extents = Vector2( 19.25, 20.75 )
+extents = Vector2( 20, 14 )
 
 [node name="Enemy" type="KinematicBody2D"]
 scale = Vector2( -1, 1 )
@@ -50,7 +50,7 @@ script = ExtResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 4 )
-frame = 1
+frame = 3
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -98,9 +98,9 @@ item = ExtResource( 9 )
 [node name="HurtArea" parent="." instance=ExtResource( 10 )]
 collision_layer = 16
 
-[node name="Test" type="CollisionShape2D" parent="HurtArea" index="0"]
+[node name="CollisionShape2D" parent="HurtArea" index="0"]
 shape = SubResource( 8 )
 [connection signal="bounced" from="BounceArea" to="." method="die"]
-[connection signal="damage_inflicted" from="HurtArea" to="." method="die"]
+[connection signal="damage_inflicted" from="HurtArea" to="." method="die_hit"]
 
 [editable path="HurtArea"]

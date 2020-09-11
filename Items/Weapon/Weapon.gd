@@ -5,7 +5,8 @@ class_name Weapon
 onready var animation := $AnimationPlayer
 
 func _ready():
-	animation.connect("animation_finished", self, "animation_finished")
+	if animation.connect("animation_finished", self, "animation_finished"):
+		print("Error connection signal")
 
 
 func attack():

@@ -156,9 +156,9 @@ shape = SubResource( 6 )
 [node name="BlinkPlayer" type="AnimationPlayer" parent="."]
 anims/Blink = SubResource( 7 )
 [connection signal="zero_health" from="Health" to="." method="die"]
+[connection signal="damage_inflicted" from="HurtArea" to="." method="hit_knockback"]
 [connection signal="invincible_end" from="HurtArea" to="." method="stop_blink"]
 [connection signal="invincible_start" from="HurtArea" to="." method="start_blink"]
-[connection signal="bounce" from="BounceDetection" to="." method="bounce"]
 [connection signal="pick_up" from="PickUpArea" to="." method="equip_item"]
 
 [editable path="HurtArea"]

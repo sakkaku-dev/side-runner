@@ -57,7 +57,7 @@ func _update_expand_notifier_position(cell_pos: Vector2) -> void:
 	expand_notifier.global_position = map_to_world(cell_pos)
 
 func _create_platform(pos: Vector2, length: int) -> Vector2:
-	for i in range(0, length):
+	for _i in range(0, length):
 		_create_tile_at(pos)
 		pos.x += 1
 	return pos

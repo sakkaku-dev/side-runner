@@ -6,3 +6,6 @@ onready var camera := $MainCamera
 func set_left_limit(pos_x: int) -> void:
 	camera.limit_left = pos_x
 	limit.global_position.x = pos_x
+
+func player_outside_map():
+	pass # Replace with function body.

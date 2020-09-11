@@ -5,7 +5,6 @@ signal died
 export var jump = 700
 export var bounce_force = 1000
 
-onready var sprite := $Sprite
 onready var state := $MoveState
 onready var animation := $AnimationPlayer
 onready var bounce_detection := $BounceDetection
@@ -39,8 +38,11 @@ func _physics_process(delta: float) -> void:
 	if state.velocity.y > 0:
 		bounce_detection.check_bounce(state.velocity, delta)
 		
-	if Input.is_action_just_pressed("attack") and get_weapon() != null:
+	if Input.is_action_just_pressed("attack") and has_weapon():
 		get_weapon().attack()
+		
+func has_weapon() -> bool:
+	return hand.get_child_count() > 0
 		
 func get_weapon() -> Weapon:
 	return hand.get_child(0) as Weapon
@@ -59,10 +61,13 @@ func equip_item(id: String, item: PackedScene) -> void:
 	equipped_item = id
 	if hand.get_child_count() > 0:
 		hand.get_child(0).queue_free()
-	hand.add_child(item.instance())
+	hand.call_deferred("add_child", item.instance())
 
 func start_blink() -> void:
 	blink_player.play("Blink")
 
 func stop_blink() -> void:
 	blink_player.stop()
+
+func hit_knockback(hit_dir: Vector2) -> void:
+	state.velocity += hit_dir
