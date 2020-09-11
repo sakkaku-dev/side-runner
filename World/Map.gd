@@ -40,7 +40,7 @@ func update_map() -> void:
 	_update_expand_notifier_position(last_block)
 	
 	while last_block.x <= last_block_pos.x + max_generate_distance:
-		var distance = max(2, (randi() % max_distance) + 1)
+		var distance = max(3, (randi() % max_distance) + 1)
 		var length = (randi() % max_platform_length) + 1
 		
 		var new_pos = last_block + Vector2(distance, 0)
