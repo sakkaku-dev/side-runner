@@ -1,25 +1,76 @@
-[gd_scene format=2]
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://UI/Menu.gd" type="Script" id=1]
 
 [node name="Menu" type="CenterContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-margin_left = 491.0
-margin_top = 278.0
-margin_right = 532.0
-margin_bottom = 322.0
+[node name="MainOptions" type="VBoxContainer" parent="."]
+margin_left = 462.0
+margin_top = 270.0
+margin_right = 562.0
+margin_bottom = 330.0
+rect_min_size = Vector2( 100, 0 )
+custom_constants/separation = 20
 
-[node name="Start" type="Button" parent="VBoxContainer"]
-margin_right = 41.0
+[node name="Start" type="Button" parent="MainOptions"]
+margin_right = 100.0
 margin_bottom = 20.0
 text = "Start"
 
-[node name="Controls" type="Button" parent="VBoxContainer"]
-margin_top = 24.0
-margin_right = 41.0
-margin_bottom = 44.0
-text = "Start"
+[node name="Controls" type="Button" parent="MainOptions"]
+margin_top = 40.0
+margin_right = 100.0
+margin_bottom = 60.0
+text = "Controls"
+
+[node name="Controls" type="VBoxContainer" parent="."]
+visible = false
+margin_left = 452.0
+margin_top = 258.0
+margin_right = 571.0
+margin_bottom = 341.0
+custom_constants/separation = 15
+
+[node name="Info" type="Label" parent="Controls"]
+margin_right = 119.0
+margin_bottom = 48.0
+text = "Move: A + D
+Jump: Space
+Attack: Left Mouse"
+align = 1
+
+[node name="Back" type="Button" parent="Controls"]
+margin_top = 63.0
+margin_right = 119.0
+margin_bottom = 83.0
+text = "Back"
+
+[node name="GameOver" type="VBoxContainer" parent="."]
+visible = false
+margin_left = 462.0
+margin_top = 258.0
+margin_right = 562.0
+margin_bottom = 342.0
+custom_constants/separation = 50
+
+[node name="Label" type="Label" parent="GameOver"]
+margin_right = 100.0
+margin_bottom = 14.0
+text = "Game Over"
+align = 1
+
+[node name="BackMenu" type="Button" parent="GameOver"]
+margin_top = 64.0
+margin_right = 100.0
+margin_bottom = 84.0
+text = "Back to menu"
+[connection signal="pressed" from="MainOptions/Start" to="." method="start"]
+[connection signal="pressed" from="MainOptions/Controls" to="." method="show_controls"]
+[connection signal="pressed" from="Controls/Back" to="." method="hide_controls"]
+[connection signal="pressed" from="GameOver/BackMenu" to="." method="restart"]
