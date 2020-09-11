@@ -38,6 +38,7 @@ player_path = NodePath("../Player")
 [node name="PlayerUI" parent="CanvasLayer" instance=ExtResource( 3 )]
 [connection signal="health_changed" from="Player/Health" to="CanvasLayer/PlayerUI" method="set_hearts"]
 [connection signal="max_health_changed" from="Player/Health" to="CanvasLayer/PlayerUI" method="set_max_hearts"]
+[connection signal="bounce" from="Player/BounceDetection" to="Player" method="bounce"]
 [connection signal="shrinked" from="Map" to="." method="set_left_limit"]
 
 [editable path="Player"]

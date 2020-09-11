@@ -70,7 +70,7 @@ func shrink_map() -> void:
 	var start_pos = shrink_notifier.global_position
 	
 	# Dont shrink if exited in front of the player
-	if start_pos.x > player.global_position.x:
+	if player == null or start_pos.x > player.global_position.x:
 		return
 	
 	for enemy in enemy_container.get_children():

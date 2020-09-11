@@ -1,22 +1,23 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Player/player-sprites.png" type="Texture" id=1]
 [ext_resource path="res://Player/Player.gd" type="Script" id=2]
 [ext_resource path="res://States/MoveState.tscn" type="PackedScene" id=3]
 [ext_resource path="res://addons/rpg-common/HitArea/HurtArea.tscn" type="PackedScene" id=4]
 [ext_resource path="res://addons/rpg-common/HitArea/Health.tscn" type="PackedScene" id=5]
+[ext_resource path="res://addons/rpg-common/HitArea/BounceDetection.tscn" type="PackedScene" id=6]
+[ext_resource path="res://addons/rpg-common/HitArea/PickUpArea.tscn" type="PackedScene" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 15, 25 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 15, 25 )
+extents = Vector2( 11.2835, 20.7462 )
 
 [sub_resource type="Animation" id=3]
-resource_name = "Idle"
 length = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
+tracks/0/path = NodePath("Body/Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -28,11 +29,10 @@ tracks/0/keys = {
 "values": [ 0 ]
 }
 
-[sub_resource type="Animation" id=5]
-resource_name = "Jump"
+[sub_resource type="Animation" id=4]
 length = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
+tracks/0/path = NodePath("Body/Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -44,12 +44,11 @@ tracks/0/keys = {
 "values": [ 1 ]
 }
 
-[sub_resource type="Animation" id=4]
-resource_name = "Run"
+[sub_resource type="Animation" id=5]
 length = 0.3
 loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
+tracks/0/path = NodePath("Body/Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -60,16 +59,65 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 1, 2, 0 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("Body/HandPosition:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ Vector2( -8.873, 14.7001 ), Vector2( -2.51622, 15.4947 ), Vector2( -5.69461, 15.0974 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Body/HandPosition:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 0.0, -15.0, -5.0 ]
+}
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 17, 15 )
+
+[sub_resource type="Animation" id=7]
+resource_name = "Blink"
+length = 0.3
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/Sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0.537255, 0.537255, 0.537255, 1 ) ]
+}
 
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 2
 script = ExtResource( 2 )
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="Body" type="Node2D" parent="."]
+
+[node name="Sprite" type="Sprite" parent="Body"]
+light_mask = -2147483647
 texture = ExtResource( 1 )
 offset = Vector2( 2, 0 )
 hframes = 3
-frame = 1
+
+[node name="HandPosition" type="Position2D" parent="Body"]
+position = Vector2( -8.873, 14.7001 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
@@ -78,19 +126,39 @@ shape = SubResource( 1 )
 character_path = NodePath("..")
 
 [node name="Health" parent="." instance=ExtResource( 5 )]
-max_health = 4
+max_health = 3
 
 [node name="HurtArea" parent="." instance=ExtResource( 4 )]
-visible = false
 collision_layer = 8
+invincibility_time = 1
 health_path = NodePath("../Health")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtArea"]
-modulate = Color( 1, 0.231373, 0.231373, 0.894118 )
+[node name="CollisionShape2D" parent="HurtArea" index="0"]
 shape = SubResource( 2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Idle = SubResource( 3 )
-anims/Jump = SubResource( 5 )
-anims/Run = SubResource( 4 )
+anims/Jump = SubResource( 4 )
+anims/Run = SubResource( 5 )
+
+[node name="BounceDetection" parent="." instance=ExtResource( 6 )]
+position = Vector2( 0, 25 )
+
+[node name="PickUpArea" parent="." instance=ExtResource( 7 )]
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickUpArea"]
+modulate = Color( 1, 0, 0, 1 )
+self_modulate = Color( 1, 0, 0, 1 )
+position = Vector2( 0, 10 )
+shape = SubResource( 6 )
+
+[node name="BlinkPlayer" type="AnimationPlayer" parent="."]
+anims/Blink = SubResource( 7 )
 [connection signal="zero_health" from="Health" to="." method="die"]
+[connection signal="invincible_end" from="HurtArea" to="." method="stop_blink"]
+[connection signal="invincible_start" from="HurtArea" to="." method="start_blink"]
+[connection signal="bounce" from="BounceDetection" to="." method="bounce"]
+[connection signal="pick_up" from="PickUpArea" to="." method="equip_item"]
+
+[editable path="HurtArea"]

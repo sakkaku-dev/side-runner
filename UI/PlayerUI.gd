@@ -4,7 +4,6 @@ onready var hearts_empty = $HeartsEmpty
 onready var hearts_full = $HeartsFull
 
 func set_hearts(hp: int) -> void:
-	print(hp)
 	hearts_full.set_value(hp)
 
 func set_max_hearts(hp: int) -> void:

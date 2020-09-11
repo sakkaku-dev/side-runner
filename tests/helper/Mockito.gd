@@ -16,3 +16,8 @@ static func add_child(root: Node, script: ScriptDirector, name: String) -> void:
 	var node = script.double()
 	node.name = name
 	root.add_child(node)
+
+static func pack_scene(node: Node) -> PackedScene:
+	var scene = PackedScene.new()
+	scene.pack(node)
+	return scene
