@@ -96,7 +96,6 @@ volume_db = -20.0
 [connection signal="died" from="Player" to="CanvasLayer/Menu" method="show_game_over"]
 [connection signal="health_changed" from="Player/Health" to="CanvasLayer/HBoxContainer/PlayerUI" method="set_hearts"]
 [connection signal="max_health_changed" from="Player/Health" to="CanvasLayer/HBoxContainer/PlayerUI" method="set_max_hearts"]
-[connection signal="bounce" from="Player/BounceDetection" to="Player" method="bounce"]
 [connection signal="screen_exited" from="Player/OutsideCameraNotifier" to="." method="player_outside_map"]
 [connection signal="shrinked" from="Map" to="." method="set_left_limit"]
 [connection signal="restart" from="CanvasLayer/Menu" to="." method="restart_game"]

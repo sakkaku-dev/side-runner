@@ -61,6 +61,7 @@ func equip_item(id: String, item: PackedScene) -> void:
 	equipped_item = id
 	if hand.get_child_count() > 0:
 		hand.get_child(0).queue_free()
+		
 	hand.call_deferred("add_child", item.instance())
 
 func start_blink() -> void:

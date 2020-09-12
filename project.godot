@@ -12,37 +12,37 @@ _global_script_classes=[ {
 "base": "Area2D",
 "class": "BounceArea",
 "language": "GDScript",
-"path": "res://addons/rpg-common/HitArea/BounceArea.gd"
+"path": "res://rpg-common/HitArea/BounceArea.gd"
 }, {
 "base": "RayCast2D",
 "class": "BounceDetection",
 "language": "GDScript",
-"path": "res://addons/rpg-common/HitArea/BounceDetection.gd"
+"path": "res://rpg-common/HitArea/BounceDetection.gd"
 }, {
 "base": "Node",
 "class": "Drops",
 "language": "GDScript",
-"path": "res://addons/rpg-common/Drops/Drops.gd"
+"path": "res://rpg-common/Drops/Drops.gd"
 }, {
 "base": "Node",
 "class": "Health",
 "language": "GDScript",
-"path": "res://addons/rpg-common/HitArea/Health.gd"
+"path": "res://rpg-common/HitArea/Health.gd"
 }, {
 "base": "Area2D",
 "class": "HitArea",
 "language": "GDScript",
-"path": "res://addons/rpg-common/HitArea/HitArea.gd"
+"path": "res://rpg-common/HitArea/HitArea.gd"
 }, {
 "base": "Area2D",
 "class": "HurtArea",
 "language": "GDScript",
-"path": "res://addons/rpg-common/HitArea/HurtArea.gd"
+"path": "res://rpg-common/HitArea/HurtArea.gd"
 }, {
 "base": "Node",
 "class": "ItemDrop",
 "language": "GDScript",
-"path": "res://addons/rpg-common/Drops/ItemDrop.gd"
+"path": "res://rpg-common/Drops/ItemDrop.gd"
 }, {
 "base": "Reference",
 "class": "Mockito",
@@ -57,12 +57,12 @@ _global_script_classes=[ {
 "base": "Area2D",
 "class": "PickUpArea",
 "language": "GDScript",
-"path": "res://addons/rpg-common/HitArea/PickUpArea.gd"
+"path": "res://rpg-common/HitArea/PickUpArea.gd"
 }, {
 "base": "Area2D",
 "class": "Pickable",
 "language": "GDScript",
-"path": "res://addons/rpg-common/HitArea/Pickable.gd"
+"path": "res://rpg-common/HitArea/Pickable.gd"
 }, {
 "base": "Reference",
 "class": "WAT",
@@ -121,7 +121,7 @@ window/stretch/aspect="keep"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "WAT", "rpg-common" )
+enabled=PoolStringArray( "WAT" )
 
 [importer_defaults]
 
@@ -165,7 +165,7 @@ jump={
 }
 attack={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777221,"unicode":0,"echo":false,"script":null)
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
  ]
 }
 
