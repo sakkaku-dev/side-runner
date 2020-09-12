@@ -15,7 +15,6 @@ var high_score = -1 setget set_high_score
 func set_high_score(score: int) -> void:
 	if high_score != score:
 		high_score = score
-		print(high_score)
 		score_label.text = "Score: " + str(high_score)
 
 func _process(delta: float) -> void:
