@@ -51,9 +51,39 @@ player_path = NodePath("../Player")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="PlayerUI" parent="CanvasLayer" instance=ExtResource( 3 )]
-
 [node name="Menu" parent="CanvasLayer" instance=ExtResource( 6 )]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer"]
+anchor_right = 1.0
+margin_bottom = 31.0
+custom_constants/separation = 770
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/HBoxContainer"]
+margin_right = 45.0
+margin_bottom = 41.0
+custom_constants/margin_top = 10
+custom_constants/margin_left = 10
+
+[node name="Score" type="Label" parent="CanvasLayer/HBoxContainer/MarginContainer"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 45.0
+margin_bottom = 41.0
+text = "Score
+"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayerUI" parent="CanvasLayer/HBoxContainer" instance=ExtResource( 3 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 815.0
+margin_right = 815.0
+margin_bottom = 41.0
 
 [node name="BGM" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
@@ -62,10 +92,10 @@ volume_db = -10.0
 [node name="PlayerDied" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
 volume_db = -20.0
-[connection signal="died" from="Player" to="." method="player_died"]
 [connection signal="died" from="Player" to="CanvasLayer/Menu" method="show_game_over"]
-[connection signal="health_changed" from="Player/Health" to="CanvasLayer/PlayerUI" method="set_hearts"]
-[connection signal="max_health_changed" from="Player/Health" to="CanvasLayer/PlayerUI" method="set_max_hearts"]
+[connection signal="died" from="Player" to="." method="player_died"]
+[connection signal="health_changed" from="Player/Health" to="CanvasLayer/HBoxContainer/PlayerUI" method="set_hearts"]
+[connection signal="max_health_changed" from="Player/Health" to="CanvasLayer/HBoxContainer/PlayerUI" method="set_max_hearts"]
 [connection signal="bounce" from="Player/BounceDetection" to="Player" method="bounce"]
 [connection signal="screen_exited" from="Player/OutsideCameraNotifier" to="." method="player_outside_map"]
 [connection signal="shrinked" from="Map" to="." method="set_left_limit"]
