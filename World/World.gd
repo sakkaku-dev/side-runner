@@ -13,8 +13,9 @@ onready var score_label := $CanvasLayer/HBoxContainer/MarginContainer/Score
 var high_score = -1 setget set_high_score
 
 func set_high_score(score: int) -> void:
-	if high_score != score:
-		high_score = score
+	var new_score = max(score, high_score)
+	if high_score != new_score:
+		high_score = new_score
 		score_label.text = "Score: " + str(high_score)
 
 func _process(delta: float) -> void:

@@ -92,8 +92,8 @@ volume_db = -10.0
 [node name="PlayerDied" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
 volume_db = -20.0
-[connection signal="died" from="Player" to="CanvasLayer/Menu" method="show_game_over"]
 [connection signal="died" from="Player" to="." method="player_died"]
+[connection signal="died" from="Player" to="CanvasLayer/Menu" method="show_game_over"]
 [connection signal="health_changed" from="Player/Health" to="CanvasLayer/HBoxContainer/PlayerUI" method="set_hearts"]
 [connection signal="max_health_changed" from="Player/Health" to="CanvasLayer/HBoxContainer/PlayerUI" method="set_max_hearts"]
 [connection signal="bounce" from="Player/BounceDetection" to="Player" method="bounce"]
