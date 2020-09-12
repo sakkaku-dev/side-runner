@@ -30,10 +30,10 @@ jobs:
         run: |
           mkdir -v -p ~/.local/share/godot/templates
           mv /root/.local/share/godot/templates/${GODOT_VERSION}.stable ~/.local/share/godot/templates/${GODOT_VERSION}.stable
-      - name: Web Build
+      - name: Export
         run: |
           mkdir -v -p build/win
-          godot -v --export "Windows Desktop" ./build/windows/main.exe
+          godot -v --export "Windows Desktop" ./build/win/main.exe
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
@@ -51,7 +51,7 @@ jobs:
         run: |
           mkdir -v -p ~/.local/share/godot/templates
           mv /root/.local/share/godot/templates/${GODOT_VERSION}.stable ~/.local/share/godot/templates/${GODOT_VERSION}.stable
-      - name: Web Build
+      - name: Export
         run: |
           mkdir -v -p build/linux
           godot -v --export "Linux/X11" ./build/linux/main.x86_64
@@ -73,7 +73,7 @@ jobs:
         run: |
           mkdir -v -p ~/.local/share/godot/templates
           mv /root/.local/share/godot/templates/${GODOT_VERSION}.stable ~/.local/share/godot/templates/${GODOT_VERSION}.stable
-      - name: Web Build
+      - name: Export
         run: |
           mkdir -v -p build/web
           godot -v --export "HTML5" ./build/web/index.html
