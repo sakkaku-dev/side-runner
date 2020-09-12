@@ -12,7 +12,7 @@ export var health_path: NodePath
 onready var collision := $CollisionShape2D
 onready var invincibility_timer := $InvincibilityTimer
 
-var health
+var health: Health
 
 func _ready():
 	invincibility_timer.wait_time = invincibility_time

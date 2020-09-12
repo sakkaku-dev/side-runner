@@ -68,7 +68,7 @@ func start_blink() -> void:
 	blink_player.play("Blink")
 
 func stop_blink() -> void:
-	blink_player.stop()
+	blink_player.play("Normal")
 
 func hit_knockback(hit_dir: Vector2) -> void:
 	state.velocity += hit_dir
