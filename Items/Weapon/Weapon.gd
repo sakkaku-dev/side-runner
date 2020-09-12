@@ -22,5 +22,5 @@ func animation_finished(anim_name: String) -> void:
 		animation.play("Idle")
 
 
-func on_hit(area):
+func on_hit(_area):
 	impact_sound.play(0)

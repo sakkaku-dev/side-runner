@@ -23,7 +23,8 @@ func start_game():
 	bgm.play()
 	
 func restart_game():
-	get_tree().change_scene("res://World/World.tscn")
+	if get_tree().change_scene("res://World/World.tscn"):
+		print("Failed to restart game")
 
 func player_died():
 	bgm.stop()

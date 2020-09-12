@@ -12,7 +12,7 @@ func add_drop_to(node: Node) -> Node:
 		var drop = get_random_drop()
 		if drop != null:
 			var drop_node = drop.instance()
-			node.add_child(drop_node)
+			node.call_deferred("add_child", drop_node)
 			return drop_node
 	return null
 

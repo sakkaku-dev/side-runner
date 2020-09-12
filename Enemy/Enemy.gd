@@ -13,7 +13,7 @@ func _physics_process(_delta: float) -> void:
 
 	state.direction = dir
 
-func die_hit(hit_dir: Vector2) -> void:
+func die_hit(_hit_dir: Vector2) -> void:
 	die()
 
 func die() -> void:
