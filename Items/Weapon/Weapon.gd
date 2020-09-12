@@ -24,3 +24,10 @@ func animation_finished(anim_name: String) -> void:
 
 func on_hit(_area):
 	impact_sound.play(0)
+
+func delete_weapon():
+	if impact_sound.playing:
+		impact_sound.connect("finished", self, "queue_free")
+		hide()
+	else:
+		queue_free()

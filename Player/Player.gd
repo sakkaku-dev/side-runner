@@ -59,8 +59,8 @@ func equip_item(id: String, item: PackedScene) -> void:
 		return
 	
 	equipped_item = id
-	if hand.get_child_count() > 0:
-		hand.get_child(0).queue_free()
+	for i in range(hand.get_child_count()):
+		hand.get_child(i).delete_weapon()
 		
 	hand.call_deferred("add_child", item.instance())
 
